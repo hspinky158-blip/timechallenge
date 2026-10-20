@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChronoPulse - Thử Thách Thời Gian Online</title>
-    <!-- Tailwind CSS & FontAwesome Icons -->
+    <title>ChronoPulse - Thử Thách Thời Gian</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Orbitron -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
@@ -40,7 +42,7 @@
             </div>
             <div>
                 <h1 class="font-orbitron font-extrabold text-xl text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">CHRONO<span>PULSE</span></h1>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest">Multiplayer Realtime Challenge</p>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest">Precision Timing Challenge</p>
             </div>
         </div>
         <div id="room-badge" class="hidden px-3 py-1.5 rounded-xl bg-indigo-500/20 border border-indigo-500/30 text-xs font-orbitron text-cyan-300 font-bold">
@@ -54,13 +56,10 @@
         <!-- 1. MÀN HÌNH CHỌN CHẾ ĐỘ -->
         <section id="screen-home" class="w-full glass rounded-3xl p-8 text-center">
             <h2 class="font-orbitron text-3xl font-black text-white mb-3">THỬ THÁCH THỜI GIAN</h2>
-            <p class="text-slate-400 text-sm mb-8">Thi đếm ngầm thời gian chính xác cùng bạn bè trực tuyến qua Internet!</p>
+            <p class="text-slate-400 text-sm mb-8">Thi đếm ngầm thời gian chính xác! Thêm Bot AI hoặc đấu cùng bạn bè trên cùng thiết bị.</p>
             <div class="space-y-4 max-w-sm mx-auto">
                 <button onclick="showScreen('create')" class="w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 font-orbitron font-bold text-white shadow-lg shadow-indigo-500/30 transition">
                     <i class="fa-solid fa-plus-circle mr-2"></i> TẠO PHÒNG MỚI
-                </button>
-                <button onclick="showScreen('join')" class="w-full py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 font-orbitron font-bold text-slate-200 border border-slate-700 transition">
-                    <i class="fa-solid fa-right-to-bracket mr-2 text-cyan-400"></i> NHẬP MÃ VÀO PHÒNG
                 </button>
             </div>
         </section>
@@ -74,40 +73,21 @@
                     <input type="text" id="create-name" placeholder="Nhập biệt danh..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white outline-none focus:border-indigo-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Mốc Thời Gian (Giây)</label>
+                    <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Mốc Thời Gian Mục Tiêu (Giây)</label>
                     <input type="number" id="create-target" value="10" min="1" max="60" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white outline-none focus:border-indigo-500 font-orbitron">
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Số Lượng Người Chơi Tối Đa (Tùy nhập)</label>
-                    <input type="number" id="create-max-players" value="4" min="2" max="100" placeholder="Nhập số người tối đa..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white outline-none focus:border-indigo-500 font-orbitron">
+                    <input type="number" id="create-max-players" value="4" min="2" max="100" placeholder="Nhập số lượng người..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white outline-none focus:border-indigo-500 font-orbitron">
                 </div>
                 <div class="flex gap-3 pt-4">
                     <button onclick="showScreen('home')" class="w-1/3 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold">Hủy</button>
-                    <button id="btn-create-submit" class="w-2/3 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-orbitron font-bold text-white shadow-lg shadow-indigo-500/30">TẠO PHÒNG</button>
+                    <button id="btn-create-submit" class="w-2/3 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-orbitron font-bold text-white shadow-lg shadow-indigo-500/30">TẠO PHÒNG NGAY</button>
                 </div>
             </div>
         </section>
 
-        <!-- 3. MÀN HÌNH THAM GIA PHÒNG -->
-        <section id="screen-join" class="hidden w-full glass rounded-3xl p-8 max-w-md mx-auto">
-            <h3 class="font-orbitron text-2xl font-bold text-center text-white mb-6">THAM GIA PHÒNG</h3>
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Mã Phòng (6 ký tự)</label>
-                    <input type="text" id="join-code" placeholder="VD: A1B2C3" maxlength="6" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-center text-cyan-300 font-orbitron text-xl font-bold tracking-widest uppercase outline-none focus:border-cyan-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Tên Người Chơi</label>
-                    <input type="text" id="join-name" placeholder="Nhập biệt danh..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white outline-none focus:border-indigo-500">
-                </div>
-                <div class="flex gap-3 pt-4">
-                    <button onclick="showScreen('home')" class="w-1/3 py-3 rounded-xl bg-slate-800 text-slate-300 font-bold">Hủy</button>
-                    <button id="btn-join-submit" class="w-2/3 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 font-orbitron font-bold text-white">VÀO PHÒNG</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. MÀN HÌNH SẢNH CHỜ (LOBBY) -->
+        <!-- 3. MÀN HÌNH SẢNH CHỜ (LOBBY) -->
         <section id="screen-lobby" class="hidden w-full glass rounded-3xl p-8">
             <div class="flex flex-col sm:flex-row justify-between items-center bg-slate-900/60 p-4 rounded-2xl border border-slate-800 mb-6 gap-4">
                 <div>
@@ -135,13 +115,9 @@
                 <button id="btn-start-game" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-indigo-600 font-orbitron font-black text-lg text-white shadow-lg">BẮT ĐẦU TRẬN ĐẤU</button>
                 <p id="host-msg" class="text-xs text-center text-slate-400 mt-2">Cần ít nhất 2 người chơi (hoặc thêm Bot) để bắt đầu.</p>
             </div>
-            <div id="guest-waiting" class="hidden text-center py-4">
-                <i class="fa-solid fa-spinner animate-spin text-2xl text-cyan-400 mb-2"></i>
-                <p class="font-orbitron text-sm font-bold text-white">ĐANG CHỜ CHỦ PHÒNG BẮT ĐẦU...</p>
-            </div>
         </section>
 
-        <!-- 5. MÀN HÌNH CHƠI GAME -->
+        <!-- 4. MÀN HÌNH CHƠI GAME -->
         <section id="screen-game" class="hidden w-full glass rounded-3xl p-8 text-center">
             <div id="game-countdown" class="py-12">
                 <div class="text-xs text-indigo-400 font-bold mb-2">CHUẨN BỊ</div>
@@ -157,15 +133,9 @@
                 </div>
                 <button id="btn-stop" class="w-full max-w-sm py-5 rounded-2xl bg-gradient-to-r from-rose-600 to-red-500 font-orbitron font-extrabold text-2xl text-white shadow-lg shadow-red-500/30">DỪNG LẠI!</button>
             </div>
-
-            <div id="game-waiting" class="hidden py-8">
-                <i class="fa-solid fa-hourglass-half animate-spin text-3xl text-cyan-400 mb-3"></i>
-                <h4 class="font-orbitron text-lg font-bold text-white">ĐÃ GHI NHẬN KẾT QUẢ!</h4>
-                <p id="game-wait-status" class="text-xs text-slate-400 mt-2">Đang chờ các người chơi khác hoàn tất...</p>
-            </div>
         </section>
 
-        <!-- 6. MÀN HÌNH KẾT QUẢ -->
+        <!-- 5. MÀN HÌNH KẾT QUẢ -->
         <section id="screen-result" class="hidden w-full glass rounded-3xl p-8">
             <h3 class="font-orbitron text-2xl font-black text-center text-amber-400 mb-6">🏆 BẢNG XẾP HẠNG PHÒNG</h3>
             <div class="overflow-x-auto rounded-xl border border-slate-800 mb-6">
@@ -181,150 +151,60 @@
                     <tbody id="result-tbody" class="divide-y divide-slate-800"></tbody>
                 </table>
             </div>
-            <div id="result-actions" class="hidden">
-                <button id="btn-next-round" class="w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 font-orbitron font-bold text-white shadow-lg">VÒNG TIẾP THEO (VỀ SẢNH)</button>
-            </div>
-            <p id="result-guest-msg" class="text-center text-xs text-slate-400">Đang chờ chủ phòng bắt đầu vòng tiếp theo...</p>
+            <button id="btn-next-round" class="w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 font-orbitron font-bold text-white shadow-lg">VÒNG TIẾP THEO (VỀ SẢNH)</button>
         </section>
 
     </main>
 
     <footer class="text-center text-xs text-slate-600 py-2">
-        ChronoPulse Realtime Engine
+        ChronoPulse Standalone Game Engine
     </footer>
 
-    <!-- FIREBASE REALTIME DATABASE SDK -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, set, get, update, onValue, off } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-        // 🔴 ĐIỀN THÔNG SỐ FIREBASE DƯỚI ĐÂY LẤY TỪ FIREBASE CONSOLE CỦA BẠN
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.asia-east1.firebasedatabase.app",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
+    <!-- JAVASCRIPT GAME LOGIC (NO BACKEND / NO FIREBASE) -->
+    <script>
         const localUser = {
             id: 'U_' + Math.random().toString(36).substring(2, 9),
             name: '',
-            isHost: false,
-            roomCode: null,
             finished: false,
             time: 0,
             diff: 0
         };
 
         let currentRoom = null;
-        let activeListener = null;
         let startTime = 0;
-        let countdownStarted = false;
 
         function showScreen(screenId) {
-            ['home', 'create', 'join', 'lobby', 'game', 'result'].forEach(id => {
+            ['home', 'create', 'lobby', 'game', 'result'].forEach(id => {
                 document.getElementById('screen-' + id).classList.add('hidden');
             });
             document.getElementById('screen-' + screenId).classList.remove('hidden');
-        }
-        window.showScreen = showScreen;
-
-        function parsePlayers(p) {
-            if (!p) return [];
-            return Array.isArray(p) ? p : Object.values(p);
         }
 
         function generateCode() {
             return Math.random().toString(36).substring(2, 8).toUpperCase();
         }
 
-        function listenRoom(code) {
-            if (activeListener) off(activeListener);
-            activeListener = ref(db, 'rooms/' + code);
-
-            onValue(activeListener, (snap) => {
-                const data = snap.val();
-                if (!data) return;
-
-                currentRoom = data;
-                currentRoom.players = parsePlayers(currentRoom.players);
-
-                if (currentRoom.status === 'LOBBY') {
-                    countdownStarted = false;
-                    renderLobby();
-                    showScreen('lobby');
-                } else if (currentRoom.status === 'PLAYING') {
-                    if (!countdownStarted) {
-                        countdownStarted = true;
-                        runCountdown();
-                    } else {
-                        const done = currentRoom.players.filter(x => x.finished).length;
-                        document.getElementById('game-wait-status').textContent = `Đã xong: ${done}/${currentRoom.players.length} người chơi`;
-                    }
-                } else if (currentRoom.status === 'RESULT') {
-                    renderResults();
-                }
-            });
-        }
-
-        // TẠO PHÒNG MỚI
-        document.getElementById('btn-create-submit').addEventListener('click', async () => {
-            const name = document.getElementById('create-name').value.trim() || 'Host_' + Math.floor(Math.random()*100);
+        // TẠO PHÒNG
+        document.getElementById('btn-create-submit').addEventListener('click', () => {
+            const name = document.getElementById('create-name').value.trim() || 'Player_' + Math.floor(Math.random()*100);
             const target = parseFloat(document.getElementById('create-target').value) || 10;
             const maxPlayers = parseInt(document.getElementById('create-max-players').value) || 4;
 
             const code = generateCode();
             localUser.name = name;
-            localUser.isHost = true;
-            localUser.roomCode = code;
 
-            const roomData = {
+            currentRoom = {
                 code: code,
                 target: target,
                 maxPlayers: maxPlayers,
-                status: 'LOBBY',
                 players: [{ id: localUser.id, name: name, isHost: true, finished: false, time: 0, diff: 0 }]
             };
 
-            await set(ref(db, 'rooms/' + code), roomData);
             document.getElementById('room-badge').classList.remove('hidden');
             document.getElementById('badge-code').textContent = code;
-            listenRoom(code);
-        });
 
-        // THAM GIA PHÒNG
-        document.getElementById('btn-join-submit').addEventListener('click', async () => {
-            const code = document.getElementById('join-code').value.trim().toUpperCase();
-            const name = document.getElementById('join-name').value.trim() || 'Player_' + Math.floor(Math.random()*100);
-
-            if (!code || code.length !== 6) return alert('Mã phòng phải đủ 6 ký tự!');
-
-            const snap = await get(ref(db, 'rooms/' + code));
-            if (!snap.exists()) return alert('Không tìm thấy phòng!');
-
-            const room = snap.val();
-            let players = parsePlayers(room.players);
-
-            if (players.length >= room.maxPlayers) return alert('Phòng đã đầy!');
-
-            localUser.name = name;
-            localUser.isHost = false;
-            localUser.roomCode = code;
-
-            if (!players.some(p => p.id === localUser.id)) {
-                players.push({ id: localUser.id, name: name, isHost: false, finished: false, time: 0, diff: 0 });
-            }
-
-            await update(ref(db, 'rooms/' + code), { players: players });
-            document.getElementById('room-badge').classList.remove('hidden');
-            document.getElementById('badge-code').textContent = code;
-            listenRoom(code);
+            renderLobby();
+            showScreen('lobby');
         });
 
         // HIỂN THỊ SẢNH CHỜ
@@ -346,22 +226,18 @@
                 `;
             });
 
-            if (localUser.isHost) {
-                document.getElementById('host-actions').classList.remove('hidden');
-                document.getElementById('guest-waiting').classList.add('hidden');
-                document.getElementById('btn-start-game').disabled = currentRoom.players.length < 2;
-            } else {
-                document.getElementById('host-actions').classList.add('hidden');
-                document.getElementById('guest-waiting').classList.remove('hidden');
-            }
+            document.getElementById('btn-start-game').disabled = currentRoom.players.length < 2;
         }
 
         // THÊM BOT AI
-        document.getElementById('btn-add-bot').addEventListener('click', async () => {
-            if (!localUser.isHost || !currentRoom) return;
-            if (currentRoom.players.length >= currentRoom.maxPlayers) return alert('Phòng đã đầy!');
+        document.getElementById('btn-add-bot').addEventListener('click', () => {
+            if (!currentRoom) return;
+            if (currentRoom.players.length >= currentRoom.maxPlayers) {
+                alert('Phòng đã đạt số lượng tối đa!');
+                return;
+            }
 
-            const botNames = ['CyberBot', 'ReflexAI', 'ChronoBot', 'NeonAI'];
+            const botNames = ['CyberBot', 'ReflexAI', 'ChronoBot', 'NeonAI', 'SpeedMaster'];
             const bot = {
                 id: 'BOT_' + Math.random().toString(36).substring(2, 7),
                 name: botNames[Math.floor(Math.random() * botNames.length)] + '_' + Math.floor(Math.random()*90 + 10),
@@ -372,22 +248,20 @@
             };
 
             currentRoom.players.push(bot);
-            await update(ref(db, 'rooms/' + currentRoom.code), { players: currentRoom.players });
+            renderLobby();
         });
 
-        // BẮT ĐẦU GAME
-        document.getElementById('btn-start-game').addEventListener('click', async () => {
-            if (!localUser.isHost) return;
-            const resetP = currentRoom.players.map(p => ({ ...p, finished: false, time: 0, diff: 0 }));
-            await update(ref(db, 'rooms/' + currentRoom.code), { status: 'PLAYING', players: resetP });
+        // BẮT ĐẦU VÒNG ĐẤU
+        document.getElementById('btn-start-game').addEventListener('click', () => {
+            currentRoom.players.forEach(p => { p.finished = false; p.time = 0; p.diff = 0; });
+            runCountdown();
         });
 
-        // ĐẾM NGƯỢC
+        // ĐẾM NGƯỢC DỒN TÂM
         function runCountdown() {
             showScreen('game');
             document.getElementById('game-countdown').classList.remove('hidden');
             document.getElementById('game-play-area').classList.add('hidden');
-            document.getElementById('game-waiting').classList.add('hidden');
 
             let num = 3;
             document.getElementById('countdown-num').textContent = num;
@@ -405,12 +279,13 @@
                     startTime = performance.now();
                     localUser.finished = false;
 
-                    if (localUser.isHost) runBots();
+                    // Cho các Bot chạy ngầm
+                    runBots();
                 }
             }, 1000);
         }
 
-        // NÚT DỪNG LẠI
+        // NÚT BẤM DỪNG LẠI
         document.getElementById('btn-stop').addEventListener('click', () => {
             if (localUser.finished) return;
 
@@ -420,47 +295,34 @@
             const elapsed = (stopTime - startTime) / 1000;
             const diff = Math.abs(elapsed - currentRoom.target);
 
-            document.getElementById('game-play-area').classList.add('hidden');
-            document.getElementById('game-waiting').classList.remove('hidden');
-
             submitTime(localUser.id, elapsed, diff);
         });
 
+        // BOT GIẢ LẬP
         function runBots() {
             currentRoom.players.filter(p => p.isBot).forEach(bot => {
                 const target = currentRoom.target;
-                const botTime = Math.max(0.2, target + (Math.random() * 0.4 - 0.2));
+                const botTime = Math.max(0.2, target + (Math.random() * 0.5 - 0.25));
                 setTimeout(() => submitTime(bot.id, botTime, Math.abs(botTime - target)), botTime * 1000);
             });
         }
 
-        async function submitTime(uid, time, diff) {
-            const snap = await get(ref(db, 'rooms/' + currentRoom.code));
-            if (!snap.exists()) return;
-
-            let room = snap.val();
-            let players = parsePlayers(room.players);
-
-            const idx = players.findIndex(p => p.id === uid);
-            if (idx !== -1) {
-                players[idx].finished = true;
-                players[idx].time = time;
-                players[idx].diff = diff;
+        function submitTime(uid, time, diff) {
+            const p = currentRoom.players.find(x => x.id === uid);
+            if (p) {
+                p.finished = true;
+                p.time = time;
+                p.diff = diff;
             }
 
-            const done = players.filter(p => p.finished).length;
-            let updateObj = { players: players };
-
-            if (done >= players.length && room.status !== 'RESULT') {
-                updateObj.status = 'RESULT';
-                players.sort((a, b) => a.diff - b.diff);
-                updateObj.players = players;
+            const allDone = currentRoom.players.every(x => x.finished);
+            if (allDone) {
+                currentRoom.players.sort((a, b) => a.diff - b.diff);
+                renderResults();
             }
-
-            await update(ref(db, 'rooms/' + currentRoom.code), updateObj);
         }
 
-        // KẾT QUẢ
+        // KẾT QUẢ VÀ BẢNG XẾP HẠNG
         function renderResults() {
             showScreen('result');
             const tbody = document.getElementById('result-tbody');
@@ -477,20 +339,11 @@
                     </tr>
                 `;
             });
-
-            if (localUser.isHost) {
-                document.getElementById('result-actions').classList.remove('hidden');
-                document.getElementById('result-guest-msg').classList.add('hidden');
-            } else {
-                document.getElementById('result-actions').classList.add('hidden');
-                document.getElementById('result-guest-msg').classList.remove('hidden');
-            }
         }
 
-        document.getElementById('btn-next-round').addEventListener('click', async () => {
-            if (!localUser.isHost) return;
-            const resetP = currentRoom.players.map(p => ({ ...p, finished: false, time: 0, diff: 0 }));
-            await update(ref(db, 'rooms/' + currentRoom.code), { status: 'LOBBY', players: resetP });
+        document.getElementById('btn-next-round').addEventListener('click', () => {
+            renderLobby();
+            showScreen('lobby');
         });
 
         document.getElementById('btn-copy').addEventListener('click', () => {
